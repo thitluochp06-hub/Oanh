@@ -1,0 +1,20 @@
+.img {
+  max-width: 30%;
+  margin-left: 20px;
+  display: block;
+  background: blue;
+  border-radius: 15px;
+  padding-bottom: 0.5px 0.5px 0.5px 0.5px;
+  box-shadow: 0px 8px 24px;
+}
+.envelope-wrapper {
+  margin-left: 10px;
+  margin-right: 100px;
+}
+
+.text-container {
+  margin-left: auto;
+}
+body {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Gửi Oanh ❤️</title>
+    <style>
+      .img {
+  max-width: 30%;
+  margin-left: 15px;
+  display: block;
+  background: blue;
+  border-radius: 15px;
+  padding-bottom: 0.5px 0.5px 0.5px 0.5px;
+  box-shadow: 0px 8px 24px;
+}
+.envelope-wrapper {
+  margin-left: 10px;
+  margin-right: 100px;
+}
+
+.text-container {
+  margin-left: auto;
+}
+body {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+      /* Nền hồng nhạt */
+      body {
+        background-color: #ffe5ec;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Khối phong bì tương tác */
+      .envelope-wrapper {
+        cursor: pointer;
+        text-align: center;
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+      .envelope-wrapper:hover {
+        transform: scale(1.1);
+      }
+
+      /* Tạo hình phong bì bằng CSS */
+      .custom-envelope {
+        width: 90px;
+        height: 60px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        position: relative;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        animation: bounce 1.5s infinite;
+      }
+      .custom-envelope::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-top: 35px solid #f0f0f0;
+        border-left: 45px solid transparent;
+        border-right: 45px solid transparent;
+      }
+
+      /* Tạo hình trái tim nhỏ dán trên phong bì */
+      .heart-badge {
+        position: absolute;
+        top: 25px;
+        left: 38px;
+        width: 14px;
+        height: 14px;
+        background-color: #ff4d6d;
+        transform: rotate(-45deg);
+      }
+      .heart-badge::before,
+      .heart-badge::after {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background-color: #ff4d6d;
+        border-radius: 50%;
+      }
+      .heart-badge::before {
+        top: -7px;
+        left: 0;
+      }
+      .heart-badge::after {
+        left: 7px;
+        top: 0;
+      }
+
+      .click-text {
+        color: #ff4d6d;
+        font-weight: bold;
+        font-size: 1.3rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Hộp thư sau khi mở */
+      .letter-box {
+        display: none;
+        background-color: #ffffff;
+        padding: 35px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+        width: 85%;
+        max-width: 450px;
+        text-align: center;
+        border: 2px dashed #ff4d6d;
+        z-index: 10;
+        margin-left: 90px;
+      }
+
+      #text-container {
+        color: #4a4a4a;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        min-height: 150px;
+        white-space: pre-line;
+        text-align: left;
+      }
+
+      .highlight {
+        color: #ff4d6d;
+        font-weight: bold;
+        font-size: 1.4rem;
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        animation: pulse 1s infinite alternate;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      @keyframes pulse {
+        from {
+          transform: scale(0.95);
+        }
+        to {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Trái tim bay hiệu ứng nền */
+      .falling-heart {
+        position: absolute;
+        top: -20px;
+        pointer-events: none;
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(105vh) rotate(360deg);
+        }
+      }
+      
+    </style>
+  </head>
+  <body>
+    <!-- Link nhạc nền Piano lãng mạn nhẹ nhàng (Tự động lặp lại liên tục) -->
+    <iframe
+      id="audio-player"
+      src="/audio/"
+      allow="autoplay"
+      style="display: none"
+    ></iframe>
+    <audio id="bg-music" loop preload="auto">
+      <source src="/audio/Beau.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Khối phong bì nhấn để mở -->
+    <div class="envelope-wrapper" id="envelope" onclick="openLetter()">
+      <div class="custom-envelope">
+        <div class="heart-badge"></div>
+      </div>
+      
+      <div class="click-text">Bấm vào đây đi Oanh...</div>
+    </div>
+    
+<img class="img" src="/img/489249722_2869682986545441_4751016861252891252_n.jpg" alt=""></div>
+<h1></h1>
+    <!-- Nội dung bức thư -->
+    <div class="letter-box" id="letter">
+      <p id="text-container"></p>
+    </div>
+
+    <script>
+      const lines = [
+        "Chào Oanh, người mà đã làm cho anh có cảm giác thật khó tả ngay từ lần gặp đầu tiên.",
+        "Anh viết bức thư này ngay từ ngày hôm đó...",
+        "Em biết không .Hôm nay trời có thể mưa rất to nhưng anh biết chắc chắn sẽ có 1 ngày bầu trời sẽ sáng trở lại.",
+        "Và chúng ta cũng vậy",
+        "Đừng để những ngày qua làm cho mình không vui ",
+        "Anh không biết tương lai sẽ ra sao...",
+        "Nhưng anh biết chắc chắn",
+        "Điều chúng ta phải làm là:",
+        "Vui vẻ và thật vui vẻ trong những tháng sắp tới.",
+        "Cảm ơn Em vì đã xuất hiện và để a thấy được em.",
+        "MY LOVE ❤️",
+      ];
+
+      let lineIndex = 0;
+      let charIndex = 0;
+      const container = document.getElementById("text-container");
+
+      function openLetter() {
+        // Ẩn phong bì và hiện hộp thư
+        document.getElementById("envelope").style.display = "none";
+        document.getElementById("letter").style.display = "block";
+
+        // Kích hoạt phát nhạc ngay lập tức khi click
+        const music = document.getElementById("bg-music");
+        music.volume = 0.6; // Đặt âm lượng vừa phải (60%)
+
+        // Lệnh ép phát nhạc, sửa lỗi trình duyệt chặn âm thanh
+        let playPromise = music.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then((_) => {
+              console.log("Nhạc đang phát thành công!");
+            })
+            .catch((error) => {
+              console.log(
+                "Trình duyệt vẫn chặn, đang thử lại bằng phương thức phụ...",
+                error,
+              );
+              // Phương thức dự phòng nếu trình duyệt quá nghiêm ngặt
+              music.muted = true;
+              music.play();
+              setTimeout(() => {
+                music.muted = false;
+              }, 100);
+            });
+        }
+
+        typeEffect();
+        setInterval(createFallingHeart, 300);
+      }
+
+      function typeEffect() {
+        if (lineIndex < lines.length) {
+          let currentLine = lines[lineIndex];
+
+          if (lineIndex === lines.length - 1) {
+            if (charIndex === 0)
+              container.innerHTML += "<span class='highlight'>";
+            if (charIndex < currentLine.length) {
+              container.querySelector(".highlight").innerHTML +=
+                currentLine.charAt(charIndex);
+              charIndex++;
+              setTimeout(typeEffect, 80);
+            }
+            return;
+          }
+
+          if (charIndex < currentLine.length) {
+            container.innerHTML += currentLine.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeEffect, 60);
+          } else {
+            container.innerHTML += "\n";
+            lineIndex++;
+            charIndex = 0;
+            setTimeout(typeEffect, 800);
+          }
+        }
+      }
+
+      function createFallingHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("falling-heart");
+
+        const heartIcons = ["❤️", "💖", "💕"];
+        heart.innerHTML =
+          heartIcons[Math.floor(Math.random() * heartIcons.length)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 15 + 15 + "px";
+
+        const duration = Math.random() * 3 + 4;
+        heart.style.animationDuration = duration + "s";
+        heart.style.opacity = Math.random() * 0.5 + 0.5;
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+      }
+    </script>
+  </body>
+</html>
