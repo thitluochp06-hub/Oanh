@@ -3,288 +3,268 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <title>Gửi Oanh ❤️</title>
+    <title>Gửi Người Anh Yêu</title>
+
     <style>
-
-
-      /* Nền hồng nhạt */
+      /* ========================================================================= */
+      /* 1. CSS GIAO DIỆN TỔNG QUAN                                                */
+      /* ========================================================================= */
       body {
-        background-color: #ffe5ec;
+        margin: 0;
+        padding: 0;
+        background-color: #fff0f3;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
+        min-height: 100vh;
+      }
+
+      #password-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
         height: 100vh;
-        margin: 0;
-        overflow: hidden;
-        position: relative;
-      }
-
-      /* Khối phong bì tương tác */
-      .envelope-wrapper {
-        cursor: pointer;
-        text-align: center;
-        transition: transform 0.3s;
+        background-color: #fff0f3;
+        z-index: 9999;
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        gap: 15px;
-      }
-      .envelope-wrapper:hover {
-        transform: scale(1.1);
       }
 
-      /* Tạo hình phong bì bằng CSS */
-      .custom-envelope {
-        width: 90px;
-        height: 60px;
-        background-color: #ffffff;
-        border-radius: 5px;
-        position: relative;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        animation: bounce 1.5s infinite;
-      }
-      .custom-envelope::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-top: 35px solid #f0f0f0;
-        border-left: 45px solid transparent;
-        border-right: 45px solid transparent;
-      }
-
-      /* Tạo hình trái tim nhỏ dán trên phong bì */
-      .heart-badge {
-        position: absolute;
-        top: 25px;
-        left: 38px;
-        width: 14px;
-        height: 14px;
-        background-color: #ff4d6d;
-        transform: rotate(-45deg);
-      }
-      .heart-badge::before,
-      .heart-badge::after {
-        content: "";
-        position: absolute;
-        width: 14px;
-        height: 14px;
-        background-color: #ff4d6d;
-        border-radius: 50%;
-      }
-      .heart-badge::before {
-        top: -7px;
-        left: 0;
-      }
-      .heart-badge::after {
-        left: 7px;
-        top: 0;
-      }
-
-      .click-text {
-        color: #ff4d6d;
-        font-weight: bold;
-        font-size: 1.3rem;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-      }
-
-      /* Hộp thư sau khi mở */
-      .letter-box {
-        display: none;
-        background-color: #ffffff;
-        padding: 35px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
-        width: 85%;
-        max-width: 450px;
+      .pin-box {
         text-align: center;
-        border: 2px dashed #ff4d6d;
-        z-index: 10;
-        margin-left: 90px;
+        background: #ffffff;
+        padding: 35px 25px;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
+        width: 85%;
+        max-width: 320px;
+      }
+
+      .pin-box h3 {
+        color: #ff4d6d;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .pin-box input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ffa6c9;
+        border-radius: 12px;
+        text-align: center;
+        font-size: 18px;
+        outline: none;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        color: #ff4d6d;
+      }
+
+      .pin-box button {
+        background: #ff4d6d;
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+      }
+
+      #main-content {
+        display: none;
+        width: 100%;
+        max-width: 480px;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: center;
+        position: relative;
+        z-index: 10; /* Đảm bảo thư nằm trên lớp trái tim */
+      }
+
+      .love-img {
+        width: 150px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 24px;
+        border: 4px solid rgb(240, 240, 240);
+        box-shadow: 0 8px 24px rgba(255, 77, 109, 0.2);
+        margin: 0 auto 20px auto;
+        max-width: 320px;
+        display: block;
+      }
+
+      .letter-box {
+        border: 3px dashed #ff4d6d;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px 20px;
+        box-shadow: 0 10px 25px rgba(255, 77, 109, 0.1);
+        text-align: left;
+        box-sizing: border-box;
       }
 
       #text-container {
+        font-size: 16px;
+        line-height: 1.7;
         color: #4a4a4a;
-        font-size: 1.2rem;
-        line-height: 1.6;
-        min-height: 150px;
-        white-space: pre-line;
-        text-align: left;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        margin: 0;
       }
 
-      .highlight {
-        color: #ff4d6d;
-        font-weight: bold;
-        font-size: 1.4rem;
-        display: block;
-        text-align: center;
-        margin-top: 20px;
-        animation: pulse 1s infinite alternate;
-      }
-
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-12px);
-        }
-      }
-      @keyframes pulse {
-        from {
-          transform: scale(0.95);
-        }
-        to {
-          transform: scale(1.05);
-        }
-      }
-
-      /* Trái tim bay hiệu ứng nền */
-      .falling-heart {
-        position: absolute;
+      /* ========================================================================= */
+      /* CSS CẤU HÌNH HIỆU ỨNG TRÁI TIM RƠI                                         */
+      /* ========================================================================= */
+      .heart {
+        position: fixed;
         top: -20px;
+        font-size: 20px;
+        color: #ff4d6d;
         pointer-events: none;
-        animation: fall linear infinite;
+        z-index: 1;
+        animation: fall linear forwards;
       }
+
       @keyframes fall {
         to {
-          transform: translateY(105vh) rotate(360deg);
+          transform: translateY(105vh) translateX(var(--side-distance));
+          opacity: 0;
         }
       }
-      
     </style>
   </head>
   <body>
-    <!-- Link nhạc nền Piano lãng mạn nhẹ nhàng (Tự động lặp lại liên tục) -->
-    <iframe
-      id="audio-player"
-      src="/audio/"
-      allow="autoplay"
-      style="display: none"
-    ></iframe>
-    <audio id="bg-music" loop preload="auto">
-      <source src="Beau.mp3" type="audio/mpeg" />
-    </audio>
-
-    <!-- Khối phong bì nhấn để mở -->
-    <div class="envelope-wrapper" id="envelope" onclick="openLetter()">
-      <div class="custom-envelope">
-        <div class="heart-badge"></div>
+    <!-- MÀN HÌNH KHÓA MÃ PIN -->
+    <div id="password-overlay">
+      <div class="pin-box">
+        <h3>Nhập Mã Số Bí Mật ❤️</h3>
+        <input
+          type="password"
+          id="pin-input"
+          pattern="[0-9]*"
+          inputmode="numeric"
+          placeholder="Nhập mã PIN tại đây..."
+        />
+        <button onclick="checkPin()">Mở Thư</button>
       </div>
-      
-
-      
-      <div class="click-text">Bấm vào đây nha Oanh...</div>
-    </div>
-    <img class="img" src="img/489249722_2869682986545441_4751016861252891252_n.jpg">.</div>
-    <!-- Nội dung bức thư -->
-    <div class="letter-box" id="letter">
-      <p id="text-container"></p>
     </div>
 
+    <!-- GIAO DIỆN BỨC THƯ TÌNH YÊU -->
+    <div id="main-content">
+      <audio id="bg-music" loop preload="auto">
+        <source src="audio/Beau.mp3" type="audio/mpeg" />
+      </audio>
+
+      <img
+        class="love-img"
+        src="img/489249722_2869682986545441_4751016861252891252_n.jpg"
+        alt="Người yêu"
+      />
+
+      <div class="letter-box">
+        <p id="text-container"></p>
+      </div>
+    </div>
+
+    <!-- KỊCH BẢN JAVASCRIPT XỬ LÝ -->
     <script>
-      
+      function checkPin() {
+        const userInput = document.getElementById("pin-input").value;
+        const secretPin = "28032002"; // Thay đổi mã PIN bạn muốn đặt ở đây
+
+        if (userInput === secretPin) {
+          document.getElementById("password-overlay").style.display = "none";
+          document.getElementById("main-content").style.display = "block";
+
+          const music = document.getElementById("bg-music");
+          if (music) {
+            music.play().catch(function (error) {
+              console.log("Cần tương tác để phát nhạc.");
+            });
+          }
+
+          typeWriter();
+
+          // BẮT ĐẦU KÍCH HOẠT HIỆU ỨNG TRÁI TIM RƠI
+          setInterval(createHeart, 300); // Cứ 300 mili giây (0.3 giây) tạo ra 1 trái tim mới
+        } else {
+          alert("Sai mã PIN rồi, nhập lại nha người yêu ơi! ❤️");
+          document.getElementById("pin-input").value = "";
+        }
+      }
+
+      // Hàm tạo và làm rơi trái tim ngẫu nhiên
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+
+        // Chọn ngẫu nhiên biểu tượng trái tim để sinh động
+        const heartTypes = ["❤️", "💖", "💗", "💕", "🌸"];
+        heart.innerText =
+          heartTypes[Math.floor(Math.random() * heartTypes.length)];
+
+        // Vị trí xuất hiện ngẫu nhiên theo chiều ngang màn hình (0% đến 100%)
+        heart.style.left = Math.random() * 100 + "vw";
+
+        // Kích thước trái tim to nhỏ ngẫu nhiên (từ 15px đến 30px)
+        heart.style.fontSize = Math.random() * 15 + 15 + "px";
+
+        // Tốc độ rơi nhanh chậm ngẫu nhiên (từ 3 giây đến 6 giây)
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+
+        // Độ lệch quỹ đạo bay sang ngang khi rơi xuống (từ -40px đến 40px)
+        heart.style.setProperty(
+          "--side-distance",
+          Math.random() * 80 - 40 + "px",
+        );
+
+        document.body.appendChild(heart);
+
+        // Tự động xóa trái tim khỏi mã nguồn sau khi rơi hết màn hình để tránh nặng máy
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }
+
       const lines = [
-        "Chào Em hình bên cạnh, người mà đã làm cho anh có cảm giác thật khó tả ngay từ lần gặp đầu tiên.",
-        "Anh viết bức thư này ngay từ ngày hôm đó...",
-        "Em biết không .Hôm nay trời có thể mưa rất to nhưng anh biết chắc chắn sẽ có 1 ngày bầu trời sẽ sáng trở lại.",
+        "Chào Em hình bên trên nhé, người mà đã làm cho anh có cảm giác thật khó tả ngay từ lần gặp đầu tiên.",
+        "Anh viết bức thư này ngay từ ngày hôm đó rồi và đến hôm nay mới có dịp gửi em...",
+        "Em biết không.Hôm nay dù trời có mưa giông hay bão tố thế nào đi nữa thì chắc chắn  bầu trời sẽ sáng trở lại.",
         "Và chúng ta cũng vậy",
         "Đừng để những ngày qua làm cho mình không vui ",
         "Anh không biết tương lai sẽ ra sao...",
         "Nhưng anh biết chắc chắn",
-        "Điều chúng ta phải làm là:",
-        "Vui vẻ và thật vui vẻ trong những tháng sắp tới.",
+        "Điều chúng ta cần phải làm bây giờ là:",
+        "Vui vẻ và thật vui vẻ trong những năm tháng sắp tới.",
         "Cảm ơn Em vì đã xuất hiện và để a thấy được em.",
-        "MY LOVE ❤️",
+        "❤️MY LOVE ❤️",
+        "19/6/2026",
       ];
 
-      let lineIndex = 0;
-      let charIndex = 0;
-      const container = document.getElementById("text-container");
+      let currentLine = 0;
+      let currentChar = 0;
+      const textContainer = document.getElementById("text-container");
 
-      function openLetter() {
-        // Ẩn phong bì và hiện hộp thư
-        document.getElementById("envelope").style.display = "none";
-        document.getElementById("letter").style.display = "block";
-
-        // Kích hoạt phát nhạc ngay lập tức khi click
-        const music = document.getElementById("bg-music");
-        music.volume = 0.6; // Đặt âm lượng vừa phải (60%)
-
-        // Lệnh ép phát nhạc, sửa lỗi trình duyệt chặn âm thanh
-        let playPromise = music.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then((_) => {
-              console.log("Nhạc đang phát thành công!");
-            })
-            .catch((error) => {
-              console.log(
-                "Trình duyệt vẫn chặn, đang thử lại bằng phương thức phụ...",
-                error,
-              );
-              // Phương thức dự phòng nếu trình duyệt quá nghiêm ngặt
-              music.muted = true;
-              music.play();
-              setTimeout(() => {
-                music.muted = false;
-              }, 100);
-            });
-        }
-
-        typeEffect();
-        setInterval(createFallingHeart, 300);
-      }
-
-      function typeEffect() {
-        if (lineIndex < lines.length) {
-          let currentLine = lines[lineIndex];
-
-          if (lineIndex === lines.length - 1) {
-            if (charIndex === 0)
-              container.innerHTML += "<span class='highlight'>";
-            if (charIndex < currentLine.length) {
-              container.querySelector(".highlight").innerHTML +=
-                currentLine.charAt(charIndex);
-              charIndex++;
-              setTimeout(typeEffect, 80);
-            }
-            return;
-          }
-
-          if (charIndex < currentLine.length) {
-            container.innerHTML += currentLine.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeEffect, 60);
+      function typeWriter() {
+        if (currentLine < lines.length) {
+          if (currentChar < lines[currentLine].length) {
+            textContainer.innerHTML += lines[currentLine].charAt(currentChar);
+            currentChar++;
+            setTimeout(typeWriter, 100);
           } else {
-            container.innerHTML += "\n";
-            lineIndex++;
-            charIndex = 0;
-            setTimeout(typeEffect, 800);
+            textContainer.innerHTML += "\n\n";
+            currentLine++;
+            currentChar = 0;
+            setTimeout(typeWriter, 1000);
           }
         }
-      }
-
-      function createFallingHeart() {
-        const heart = document.createElement("div");
-        heart.classList.add("falling-heart");
-
-        const heartIcons = ["❤️", "💖", "💕"];
-        heart.innerHTML =
-          heartIcons[Math.floor(Math.random() * heartIcons.length)];
-
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = Math.random() * 15 + 15 + "px";
-
-        const duration = Math.random() * 3 + 4;
-        heart.style.animationDuration = duration + "s";
-        heart.style.opacity = Math.random() * 0.5 + 0.5;
-
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), duration * 1000);
       }
     </script>
   </body>
